@@ -1,0 +1,71 @@
+*easysession.txt*    Manage your Vim sessions effortlessly.
+
+Author: James Cherti (website: https://www.jamescherti.com )
+GitHub repository: https://github.com/jamescherti/vim-easysession
+License: MIT
+
+==============================================================================
+1. Introduction                                                    *easysession*
+
+Easysession is a Vim plugin that will help you to persist and restore your Vim
+editing sessions effortlessly.
+
+It will automatically:
+- Save your Vim editing session when Vim is closed or when a buffer is saved.
+- Restore your previous session when Vim is loaded.
+
+==============================================================================
+2. Options                                                             *options*
+
+------------------------------------------------------------------------------
+2.1. g:easysession_register_autocmd
+
+1 = the Vim session will be automatically saved and restored.
+0 = manual.
+
+Default: 1
+
+------------------------------------------------------------------------------
+2.3. g:easysession_default_name
+
+The default session that will be loaded automatically when Vim is started.
+
+Default: main
+
+------------------------------------------------------------------------------
+2.2. g:easysession_dir
+
+The directory where all the Vim sessions are located.
+
+Example:
+let g:easysession_dir = expand('~/.my_vim_sessions')
+
+Default: ~/.vim_easysession
+
+==============================================================================
+3. Commands                                                           *commands*
+
+------------------------------------------------------------------------------
+3.1. Switch to a different Vim session
+
+:EasySessionLoad SESSION_NAME
+
+------------------------------------------------------------------------------
+3.2. Delete a Vim session
+
+:EasySessionRemove SESSION_NAME
+
+------------------------------------------------------------------------------
+3.3. List the available Vim sessions
+
+:EasySessionList
+
+------------------------------------------------------------------------------
+3.4. Display the name of the current Vim session
+
+:EasySessionName
+
+------------------------------------------------------------------------------
+3.5. Save your Vim session
+
+:EasySessionSave
