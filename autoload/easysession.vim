@@ -118,7 +118,7 @@ function! easysession#name(...) abort
   endif
 
   if ! exists('s:easysession_name')
-    let s:easysession_name = g:easysession_default_name
+    let s:easysession_name = g:easysession_default_session
   endif
 
   return s:strip(s:easysession_name)
