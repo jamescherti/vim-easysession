@@ -83,21 +83,29 @@ function! easysession#save() abort
   endif
 
   " Create the session
-  let sessionoptions = &sessionoptions
+  let l:sessionoptions = &sessionoptions
   try
     set sessionoptions+=tabpages
     set sessionoptions-=options
     set sessionoptions-=blank
 
     execute 'mksession! ' . fnameescape(l:session_path)
-    if has('gui_running') && &guifont !=# ''
-      call writefile(['set guifont=' . escape(&guifont, ' ')], l:session_path, 'a')
+    if has('gui_running') && exists('&guifont') && &guifont !=# ''
+      call writefile(['silent! set guifont=' . escape(&guifont, ' ')], l:session_path, 'a')
+    endif
+
+    if exists('&background') && &background !=# ''
+      call writefile(['silent! set background=' . escape(&background, ' ')], l:session_path, 'a')
+    endif
+
+    if exists('g:colors_name') && g:colors_name !=# ''
+      call writefile(['silent! colorscheme ' . g:colors_name], l:session_path, 'a')
     endif
   catch
     echoerr string(v:exception)
     throw 'Unable to save the Vim session: "' . l:session_path . '".'
   finally
-    let &sessionoptions = sessionoptions
+    let &sessionoptions = l:sessionoptions
   endtry
 endfunction
 
