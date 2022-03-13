@@ -90,17 +90,42 @@ function! easysession#save() abort
     set sessionoptions-=blank
 
     execute 'mksession! ' . fnameescape(l:session_path)
+    let l:mksession_lines = []
+
+    " Fix: mksession shortmess issue
+    call add(l:mksession_lines, 'let s:shortmess_save = &shortmess')
+
+    for l:line in readfile(l:session_path)
+      " Fix: https://github.com/vim/vim/pull/9945
+      " mksession: the conditions 'if bufexists("~/file")' are always false #9945
+      let l:prefix = 'if bufexists'
+      if l:line[0:len(l:prefix)-1] ==# l:prefix
+        let l:line = substitute(l:line,
+              \ '\C\v\s*(if\s*bufexists\s*\()(.*)(\s*\)\s*\|\s*buffer\s*)',
+              \ '\1fnamemodify(\2, '':p'')\3',
+              \ '')
+      endif
+
+      call add(l:mksession_lines, l:line)
+    endfor
+
     if has('gui_running') && exists('&guifont') && &guifont !=# ''
-      call writefile(['silent! set guifont=' . escape(&guifont, ' ')], l:session_path, 'a')
+      call add(l:mksession_lines, 'silent! set guifont=' . escape(&guifont, ' '))
     endif
 
     if exists('&background') && &background !=# ''
-      call writefile(['silent! set background=' . escape(&background, ' ')], l:session_path, 'a')
+      call add(l:mksession_lines, 'silent! set background=' . escape(&background, ' '))
     endif
 
     if exists('g:colors_name') && g:colors_name !=# ''
-      call writefile(['silent! colorscheme ' . g:colors_name], l:session_path, 'a')
+      call add(l:mksession_lines, 'silent! colorscheme ' . g:colors_name)
     endif
+
+    " Fix: mksession shortmess issue
+    call add(l:mksession_lines, 'let &shortmess = s:shortmess_save')
+
+    " Save
+    call writefile(l:mksession_lines, l:session_path)
   catch
     echoerr string(v:exception)
     throw 'Unable to save the Vim session: "' . l:session_path . '".'
