@@ -91,11 +91,21 @@ function! easysession#save() abort
 
     execute 'mksession! ' . fnameescape(l:session_path)
     let l:mksession_lines = []
+    let l:mksession_add_lines = []
+
+    call add(l:mksession_lines, '" Created by the Vim plugin Easysession: https://github.com/jamescherti/vim-easysession')
 
     " Fix: mksession shortmess issue
     call add(l:mksession_lines, 'let s:shortmess_save = &shortmess')
 
+    let l:session_load_post_index = -1
+    let l:index = 0
+
     for l:line in readfile(l:session_path)
+      if match(l:line, '\C\v\sSessionLoadPost')
+        let l:session_load_post_index = l:index
+      endif
+
       " Fix: https://github.com/vim/vim/pull/9945
       " mksession: the conditions 'if bufexists("~/file")' are always false #9945
       let l:prefix = 'if bufexists'
@@ -107,22 +117,27 @@ function! easysession#save() abort
       endif
 
       call add(l:mksession_lines, l:line)
+      let l:index += 1
     endfor
 
-    if has('gui_running') && exists('&guifont') && &guifont !=# ''
-      call add(l:mksession_lines, 'silent! set guifont=' . escape(&guifont, ' '))
-    endif
-
-    if exists('&background') && &background !=# ''
-      call add(l:mksession_lines, 'silent! set background=' . escape(&background, ' '))
-    endif
-
-    if exists('g:colors_name') && g:colors_name !=# ''
-      call add(l:mksession_lines, 'silent! colorscheme ' . g:colors_name)
+    if l:session_load_post_index < 0
+      let l:session_load_post_index = l:index
     endif
 
     " Fix: mksession shortmess issue
-    call add(l:mksession_lines, 'let &shortmess = s:shortmess_save')
+    call insert(l:mksession_lines, 'let &shortmess = s:shortmess_save', l:session_load_post_index)
+
+    if exists('g:colors_name') && g:colors_name !=# ''
+      call insert(l:mksession_lines, 'silent! colorscheme ' . escape(g:colors_name, '\ "'), l:session_load_post_index)
+    endif
+
+    if exists('&background') && &background !=# ''
+      call insert(l:mksession_lines, 'silent! set background=' . escape(&background, '\ "'), l:session_load_post_index)
+    endif
+
+    if has('gui_running') && exists('&guifont') && &guifont !=# ''
+      call insert(l:mksession_lines, 'silent! set guifont=' . escape(&guifont, '\ "'), l:session_load_post_index)
+    endif
 
     " Save
     call writefile(l:mksession_lines, l:session_path)
