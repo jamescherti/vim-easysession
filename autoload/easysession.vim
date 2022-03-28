@@ -93,17 +93,17 @@ function! easysession#save() abort
     let l:mksession_lines = []
     let l:mksession_add_lines = []
 
-    call add(l:mksession_lines, '" Created by the Vim plugin Easysession: https://github.com/jamescherti/vim-easysession')
-
-    " Fix: mksession shortmess issue
-    call add(l:mksession_lines, 'let s:shortmess_save = &shortmess')
-
     let l:session_load_post_index = -1
     let l:index = 0
+    let l:save_restore_shortmess = 1
 
     for l:line in readfile(l:session_path)
-      if match(l:line, '\C\v\sSessionLoadPost')
+      if match(l:line, '\C\v\sSessionLoadPost') !=# -1
         let l:session_load_post_index = l:index
+      endif
+
+      if match(l:line, '\C\vlet\s+s:shortmess_save\s+\=') !=# -1
+        let l:save_restore_shortmess = 0
       endif
 
       " Fix: https://github.com/vim/vim/pull/9945
@@ -120,12 +120,23 @@ function! easysession#save() abort
       let l:index += 1
     endfor
 
+    " Insert before
+    if l:save_restore_shortmess
+      " Fix: mksession shortmess issue
+      call insert(l:mksession_lines, 'let s:shortmess_save = &shortmess', 0)
+    endif
+
+    call insert(l:mksession_lines, '" Created by the Vim plugin Easysession: https://github.com/jamescherti/vim-easysession', 0)
+
+    " Insert after
     if l:session_load_post_index < 0
       let l:session_load_post_index = l:index
     endif
 
-    " Fix: mksession shortmess issue
-    call insert(l:mksession_lines, 'let &shortmess = s:shortmess_save', l:session_load_post_index)
+    if l:save_restore_shortmess
+      " Fix: mksession shortmess issue
+      call insert(l:mksession_lines, 'let &shortmess = s:shortmess_save', l:session_load_post_index)
+    endif
 
     if exists('g:colors_name') && g:colors_name !=# ''
       call insert(l:mksession_lines, 'silent! colorscheme ' . escape(g:colors_name, '\ "'), l:session_load_post_index)
