@@ -108,7 +108,7 @@ function! easysession#save() abort
 
       " Fix: https://github.com/vim/vim/pull/9945
       " mksession: the conditions 'if bufexists("~/file")' are always false #9945
-      let l:prefix = 'if bufexists'
+      let l:prefix = 'if bufexists("~'
       if l:line[0:len(l:prefix)-1] ==# l:prefix
         let l:line = substitute(l:line,
               \ '\C\v\s*(if\s*bufexists\s*\()(.*)(\s*\)\s*\|\s*buffer\s*)',
