@@ -25,7 +25,7 @@
 "              OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "              SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-if exists("loaded_easysession")
+if exists('loaded_easysession')
   finish
 endif
 let g:loaded_easysession = 1
@@ -37,17 +37,17 @@ let g:easysession_default_session = get(g:, 'easysession_default_session', 'main
 if g:easysession_register_autocmd
   augroup EasySession
     autocmd!
-    autocmd VimEnter * nested :call easysession#load()
+    autocmd VimEnter * nested :call easysession#load(easysession#name(), 1)
     autocmd VimLeavePre * :call easysession#save()
     autocmd BufWritePost * :call easysession#save()
   augroup END
 endif
 
-function! s:CompleteEasySession(arglead, cmdline, cursorpos) abort
+function! s:complete_easy_session(arglead, cmdline, cursorpos) abort
   return easysession#list()
 endfunction
 
-command! -nargs=* -range -complete=customlist,s:CompleteEasySession EasySessionLoad
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad
   \ try |
   \   call easysession#load(<f-args>) |
   \   echo 'Vim session loaded successfully: "' . easysession#name() . '".' |
@@ -55,7 +55,7 @@ command! -nargs=* -range -complete=customlist,s:CompleteEasySession EasySessionL
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
 
-command! -nargs=* -range -complete=customlist,s:CompleteEasySession EasySessionRemove
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove
   \ try |
   \   call easysession#remove(<f-args>) |
   \   echo 'Vim session deleted successfully.' |
@@ -63,7 +63,15 @@ command! -nargs=* -range -complete=customlist,s:CompleteEasySession EasySessionR
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
 
-command! -nargs=0 EasySessionSave
+command! -nargs=1 -complete=customlist,s:complete_easy_session EasySessionSave
+  \ try |
+  \   call easysession#save(<f-args>) |
+  \   echo 'Vim session saved successfully: "' . easysession#name() . '".' |
+  \ catch |
+  \   echoerr 'Error: ' . string(v:exception) |
+  \ endtry
+
+command! -nargs=0 EasySessionSaveCurrent
   \ try |
   \   call easysession#save() |
   \   echo 'Vim session saved successfully: "' . easysession#name() . '".' |

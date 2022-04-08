@@ -50,6 +50,15 @@ function! easysession#load(...) abort
     let l:session_name = easysession#name()
   endif
 
+  let l:force_create = 0
+  if len(a:000) > 1
+    let l:force_create = a:2
+  endif
+
+  if !l:force_create && !filereadable(s:easysession_get_session_path(l:session_name))
+    echoerr printf("The session '%s' does not exist", l:session_name)
+  endif
+
   if l:session_name !=# easysession#name()
     " Switch the session
     call easysession#save()
@@ -74,8 +83,14 @@ function! easysession#load(...) abort
   redraw!
 endfunction
 
-function! easysession#save() abort
-  let l:session_path = s:easysession_get_session_path(easysession#name())
+function! easysession#save(...) abort
+  if len(a:000) > 0
+    let l:session_name = s:strip(a:1)
+  else
+    let l:session_name = easysession#name()
+  endif
+
+  let l:session_path = s:easysession_get_session_path(l:session_name)
 
   let l:session_dir = fnamemodify(l:session_path, ':p:h')
   if ! isdirectory(l:session_dir)
