@@ -62,7 +62,7 @@ endfunction
 command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad
   \ try |
   \   call easysession#load(<f-args>) |
-  \   echo 'Vim session loaded successfully: "' . easysession#name() . '".' |
+  \   echo 'Vim session loaded successfully:' ((<q-args>) ? <q-args> : easysession#name()) |
   \ catch |
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
@@ -70,7 +70,7 @@ command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessio
 command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove
   \ try |
   \   call easysession#remove(<f-args>) |
-  \   echo 'Vim session deleted successfully.' |
+  \   echo 'Vim session deleted successfully:' ((<q-args>) ? <q-args> : easysession#name()) |
   \ catch |
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
@@ -78,7 +78,7 @@ command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessio
 command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave
   \ try |
   \   call easysession#save(<f-args>) |
-  \   echo 'Vim session saved successfully: "' . easysession#name() . '".' |
+  \   echo 'Vim session saved successfully:' ((<q-args>) ? <q-args> : easysession#name()) |
   \ catch |
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
@@ -92,5 +92,4 @@ command! -nargs=0 EasySessionList
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
 
-command! -nargs=0 EasySessionName
-  \ echo easysession#name()
+command! -nargs=0 EasySessionName echo easysession#name()
