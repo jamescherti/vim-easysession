@@ -44,7 +44,19 @@ if g:easysession_register_autocmd
 endif
 
 function! s:complete_easy_session(arglead, cmdline, cursorpos) abort
-  return easysession#list()
+  let l:list_sessions = easysession#list()
+
+  if a:arglead ==# ''
+    return l:list_sessions
+  endif
+
+  let l:result = []
+  for l:item in l:list_sessions
+    if l:item[0:len(a:arglead)-1] ==# a:arglead
+      call add(l:result, l:item)
+    endif
+  endfor
+  return l:result
 endfunction
 
 command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad
