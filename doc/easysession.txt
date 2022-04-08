@@ -50,6 +50,10 @@ Default: ~/.vim_easysession
 
 :EasySessionLoad SESSION_NAME
 
+To load the current session:
+
+:EasySessionLoad
+
 ------------------------------------------------------------------------------
 3.2. Delete a Vim session
 
@@ -67,5 +71,9 @@ Default: ~/.vim_easysession
 
 ------------------------------------------------------------------------------
 3.5. Save your Vim session
+
+:EasySessionSave SESSION_NAME
+
+To save the current session:
 
 :EasySessionSave

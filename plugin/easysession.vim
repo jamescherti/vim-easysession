@@ -75,17 +75,9 @@ command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessio
   \   echoerr 'Error: ' . string(v:exception) |
   \ endtry
 
-command! -nargs=1 -complete=customlist,s:complete_easy_session EasySessionSave
+command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave
   \ try |
   \   call easysession#save(<f-args>) |
-  \   echo 'Vim session saved successfully: "' . easysession#name() . '".' |
-  \ catch |
-  \   echoerr 'Error: ' . string(v:exception) |
-  \ endtry
-
-command! -nargs=0 EasySessionSaveCurrent
-  \ try |
-  \   call easysession#save() |
   \   echo 'Vim session saved successfully: "' . easysession#name() . '".' |
   \ catch |
   \   echoerr 'Error: ' . string(v:exception) |
