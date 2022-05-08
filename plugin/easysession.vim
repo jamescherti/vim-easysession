@@ -33,6 +33,7 @@ let g:loaded_easysession = 1
 let g:easysession_register_autocmd = get(g:, 'easysession_register_autocmd', 1)
 let g:easysession_dir = get(g:, 'easysession_dir', expand('~/.vim_easysession'))
 let g:easysession_default_session = get(g:, 'easysession_default_session', 'main')  " default session
+let g:easysession_save_argument_list = get(g:, 'easysession_save_argument_list', 0)
 
 if g:easysession_register_autocmd
   augroup EasySession

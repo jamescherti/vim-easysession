@@ -33,6 +33,16 @@ The default session that will be loaded automatically when Vim is started.
 Default: main
 
 ------------------------------------------------------------------------------
+2.4. g:easysession_save_argument_list
+
+0 = Do not save the argument list.
+1 = Save the argument list.
+
+`:help argument-list`
+
+Default: 0
+
+------------------------------------------------------------------------------
 2.2. g:easysession_dir
 
 The directory where all the Vim sessions are located.

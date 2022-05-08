@@ -121,6 +121,10 @@ function! easysession#save(...) abort
         let l:save_restore_shortmess = 0
       endif
 
+      if !g:easysession_save_argument_list && match(l:line, '\C\v\$argadd\s') !=# -1
+        continue
+      endif
+
       " Fix: https://github.com/vim/vim/pull/9945
       " mksession: the conditions 'if bufexists("~/file")' are always false #9945
       let l:prefix = 'if bufexists("~'
