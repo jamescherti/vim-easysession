@@ -38,7 +38,7 @@ if g:easysession_register_autocmd
   augroup EasySession
     autocmd!
     autocmd VimEnter * nested :call easysession#load(easysession#name(), 1)
-    autocmd VimLeavePre * :call easysession#save()
+    autocmd VimLeavePre * if !v:dying | call easysession#save() | endif
     autocmd BufWritePost * :call easysession#save()
   augroup END
 endif
