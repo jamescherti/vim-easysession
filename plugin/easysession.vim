@@ -60,37 +60,48 @@ function! s:complete_easy_session(arglead, cmdline, cursorpos) abort
   return l:result
 endfunction
 
-command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad
-  \ try |
-  \   call easysession#load(<f-args>) |
-  \   echo 'Vim session loaded successfully:' ((<q-args>) ? <q-args> : easysession#name()) |
-  \ catch |
-  \   echoerr 'Error: ' . string(v:exception) |
-  \ endtry
+function! s:cmd_session_load(...) abort
+  let l:session_name = (len(a:000) > 0) ? a:1 :  easysession#name()
+  try
+    call easysession#load(l:session_name)
+    echo 'Vim session loaded successfully: ' . l:session_name
+  catch
+    echoerr 'Error: ' . string(v:exception)
+  endtry
+endfunction
 
-command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove
-  \ try |
-  \   call easysession#remove(<f-args>) |
-  \   echo 'Vim session deleted successfully:' ((<q-args>) ? <q-args> : easysession#name()) |
-  \ catch |
-  \   echoerr 'Error: ' . string(v:exception) |
-  \ endtry
+function! s:cmd_session_remove(...) abort
+  let l:session_name = (len(a:000) > 0) ? a:1 :  easysession#name()
+  try
+    call easysession#remove(l:session_name)
+    echo 'Vim session deleted successfully: ' . l:session_name
+  catch
+    echoerr 'Error: ' . string(v:exception)
+  endtry
+endfunction
 
-command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave
-  \ try |
-  \   call easysession#save(<f-args>) |
-  \   echo 'Vim session saved successfully:' ((<q-args>) ? <q-args> : easysession#name()) |
-  \ catch |
-  \   echoerr 'Error: ' . string(v:exception) |
-  \ endtry
+function! s:cmd_session_save(...) abort
+  let l:session_name = (len(a:000) > 0) ? a:1 :  easysession#name()
+  try
+    call easysession#save(l:session_name)
+    echo 'Vim session saved successfully: ' . l:session_name
+  catch
+    echoerr 'Error: ' . string(v:exception)
+  endtry
+endfunction
 
-command! -nargs=0 EasySessionList
-  \ try |
-  \   for item in easysession#list() |
-  \   echo item |
-  \   endfor |
-  \ catch |
-  \   echoerr 'Error: ' . string(v:exception) |
-  \ endtry
+function! s:cmd_list() abort
+  try
+    for item in easysession#list()
+      echo item
+    endfor
+  catch
+    echoerr 'Error: ' . string(v:exception)
+  endtry
+endfunction
 
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove call <SID>cmd_session_remove(<f-args>)
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad call <SID>cmd_session_load(<f-args>)
+command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave call <SID>cmd_session_save(<f-args>)
 command! -nargs=0 EasySessionName echo easysession#name()
+command! -nargs=0 EasySessionList call <SID>cmd_list()

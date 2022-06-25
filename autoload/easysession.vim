@@ -35,7 +35,6 @@ function! easysession#remove(...) abort
   let l:session_file = s:easysession_get_session_path(l:session_name)
   if filereadable(l:session_file)
     let l:session_dir = fnamemodify(l:session_file, ':p:h')
-    echo 'Deleted: ' . l:session_dir
     call delete(l:session_dir, 'rf')
     return
   else
