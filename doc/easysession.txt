@@ -5,7 +5,7 @@ GitHub repository: https://github.com/jamescherti/vim-easysession
 License: MIT
 
 ==============================================================================
-1. Introduction                                                    *easysession*
+1. Introduction                                                   *easysession*
 
 Easysession is a Vim plugin that will help you to persist and restore your Vim
 editing sessions effortlessly.
@@ -15,7 +15,7 @@ It will automatically:
 - Restore your previous session when Vim is loaded.
 
 ==============================================================================
-2. Options                                                             *options*
+2. Options                                                            *options*
 
 ------------------------------------------------------------------------------
 2.1. g:easysession_register_autocmd
@@ -53,43 +53,45 @@ let g:easysession_dir = expand('~/.my_vim_sessions')
 Default: ~/.vim_easysession
 
 ==============================================================================
-3. Commands                                                           *commands*
+3. Commands                                                          *commands*
 
 ------------------------------------------------------------------------------
 3.1. Switch to a different Vim session
-
-:EasySessionLoad SESSION_NAME
-
+>
+  :EasySessionLoad SESSION_NAME
+<
 To load the current session:
-
-:EasySessionLoad
-
+>
+  :EasySessionLoad
+<
 ------------------------------------------------------------------------------
 3.2. Delete a Vim session
-
-:EasySessionRemove SESSION_NAME
-
+>
+  :EasySessionRemove SESSION_NAME
+<
 ------------------------------------------------------------------------------
 3.3. List the available Vim sessions
-
-:EasySessionList
-
+>
+  :EasySessionList
+<
 ------------------------------------------------------------------------------
 3.4. Display the name of the current Vim session
-
-:EasySessionName
-
+>
+  :EasySessionName
+<
 ------------------------------------------------------------------------------
-3.5. Save your Vim session
-
-:EasySessionSave SESSION_NAME
+3.5. Save the Vim session
 
 To save the current session:
-
-:EasySessionSave
-
-------------------------------------------------------------------------------
-3.6. Rename your Vim session
 >
-  :EasySessionRename [SESSION_NAME]
+  :EasySessionSave
+<
+To save the current Vim session as a different session name:
+>
+  :EasySessionSave SESSION_NAME
+<
+------------------------------------------------------------------------------
+3.6. Rename the current Vim session
+>
+  :EasySessionRename SESSION_NAME
 <
