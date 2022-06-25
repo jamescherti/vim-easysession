@@ -87,3 +87,9 @@ To load the current session:
 To save the current session:
 
 :EasySessionSave
+
+------------------------------------------------------------------------------
+3.6. Rename your Vim session
+>
+  :EasySessionRename [SESSION_NAME]
+<

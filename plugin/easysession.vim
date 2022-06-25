@@ -90,6 +90,18 @@ function! s:cmd_session_save(...) abort
   endtry
 endfunction
 
+function! s:cmd_session_rename(new_name) abort
+  let l:old_name = easysession#name()
+  try
+    call easysession#save(a:new_name)
+    call easysession#remove(l:old_name)
+    call easysession#name(a:new_name)
+    echo 'Vim session renamed successfully: ' . a:new_name
+  catch
+    echoerr 'Error: ' . string(v:exception)
+  endtry
+endfunction
+
 function! s:cmd_list() abort
   try
     for item in easysession#list()
@@ -103,5 +115,6 @@ endfunction
 command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove call <SID>cmd_session_remove(<f-args>)
 command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad call <SID>cmd_session_load(<f-args>)
 command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave call <SID>cmd_session_save(<f-args>)
+command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionRename call <SID>cmd_session_rename(<f-args>)
 command! -nargs=0 EasySessionName echo easysession#name()
 command! -nargs=0 EasySessionList call <SID>cmd_list()
