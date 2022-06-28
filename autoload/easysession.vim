@@ -49,7 +49,7 @@ function! easysession#load(...) abort
     let l:session_name = easysession#name()
   endif
 
-  let l:force_create = 0
+  let l:force_create = 1
   if len(a:000) > 1
     let l:force_create = a:2
   endif
