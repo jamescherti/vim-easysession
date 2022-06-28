@@ -30,12 +30,11 @@ if exists('loaded_easysession')
 endif
 let g:loaded_easysession = 1
 
-let g:easysession_register_autocmd = get(g:, 'easysession_register_autocmd', 1)
 let g:easysession_dir = get(g:, 'easysession_dir', expand('~/.vim_easysession'))
 let g:easysession_default_session = get(g:, 'easysession_default_session', 'main')  " default session
 let g:easysession_save_argument_list = get(g:, 'easysession_save_argument_list', 0)
 
-if g:easysession_register_autocmd
+if get(g:, 'easysession_register_autocmd', 1)
   augroup EasySession
     autocmd!
     autocmd VimEnter * nested :call easysession#load(easysession#name(), 1)
@@ -60,37 +59,17 @@ function! s:complete_easy_session(arglead, cmdline, cursorpos) abort
   return l:result
 endfunction
 
-function! s:cmd_session_load(...) abort
+function! s:cmd_easysession_generic(func, msg, ...) abort
   let l:session_name = (len(a:000) > 0) ? a:1 :  easysession#name()
   try
-    call easysession#load(l:session_name)
-    echo 'Vim session loaded successfully: ' . l:session_name
+    call a:func(l:session_name)
+    echo printf(a:msg, l:session_name)
   catch
     echoerr 'Error: ' . string(v:exception)
   endtry
 endfunction
 
-function! s:cmd_session_remove(...) abort
-  let l:session_name = (len(a:000) > 0) ? a:1 :  easysession#name()
-  try
-    call easysession#remove(l:session_name)
-    echo 'Vim session deleted successfully: ' . l:session_name
-  catch
-    echoerr 'Error: ' . string(v:exception)
-  endtry
-endfunction
-
-function! s:cmd_session_save(...) abort
-  let l:session_name = (len(a:000) > 0) ? a:1 :  easysession#name()
-  try
-    call easysession#save(l:session_name)
-    echo 'Vim session saved successfully: ' . l:session_name
-  catch
-    echoerr 'Error: ' . string(v:exception)
-  endtry
-endfunction
-
-function! s:cmd_session_rename(new_name) abort
+function! s:cmd_easysession_rename(new_name) abort
   let l:old_name = easysession#name()
   try
     call easysession#save(a:new_name)
@@ -102,7 +81,7 @@ function! s:cmd_session_rename(new_name) abort
   endtry
 endfunction
 
-function! s:cmd_list() abort
+function! s:cmd_easysession_list() abort
   try
     for item in easysession#list()
       echo item
@@ -112,9 +91,9 @@ function! s:cmd_list() abort
   endtry
 endfunction
 
-command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove call <SID>cmd_session_remove(<f-args>)
-command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad call <SID>cmd_session_load(<f-args>)
-command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave call <SID>cmd_session_save(<f-args>)
-command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionRename call <SID>cmd_session_rename(<f-args>)
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove call <SID>cmd_easysession_generic(function('easysession#remove'), 'Vim session removed successfully: %s', <f-args>)
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad call <SID>cmd_easysession_generic(function('easysession#load'), 'Vim session loaded successfully: %s', <f-args>)
+command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave call <SID>cmd_easysession_generic(function('easysession#save'), 'Vim session saved successfully: %s', <f-args>)
+command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionRename call <SID>cmd_easysession_rename(<f-args>)
 command! -nargs=0 EasySessionName echo easysession#name()
-command! -nargs=0 EasySessionList call <SID>cmd_list()
+command! -nargs=0 EasySessionList call <SID>cmd_easysession_list()
