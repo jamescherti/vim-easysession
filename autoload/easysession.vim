@@ -157,11 +157,15 @@ function! easysession#save(...) abort
     endif
 
     if exists('g:colors_name') && g:colors_name !=# ''
+      call insert(l:mksession_lines, 'endif', l:session_load_post_index)
+      call insert(l:mksession_lines, '  syntax on', l:session_load_post_index)
+      call insert(l:mksession_lines, "if has('syntax') && exists('g:syntax_on') && g:syntax_on", l:session_load_post_index)
       call insert(l:mksession_lines, 'silent colorscheme ' . escape(g:colors_name, '\ "'), l:session_load_post_index)
     endif
 
     if exists('&background') && &background !=# ''
       call insert(l:mksession_lines, 'silent set background=' . escape(&background, '\ "'), l:session_load_post_index)
+      call insert(l:mksession_lines, "let g:colors_name=''", l:session_load_post_index)
     endif
 
     if has('gui_running') && exists('&guifont') && &guifont !=# ''
