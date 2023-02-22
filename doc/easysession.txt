@@ -91,7 +91,7 @@ To load the current session:
 ------------------------------------------------------------------------------
 3.2. Delete a Vim session
 >
-  :EasySessionRemove SESSION_NAME
+  :EasySessionDelete SESSION_NAME
 <
 ------------------------------------------------------------------------------
 3.3. List the available Vim sessions

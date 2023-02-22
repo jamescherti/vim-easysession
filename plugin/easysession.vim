@@ -102,7 +102,7 @@ function! s:cmd_easysession_list() abort
   endtry
 endfunction
 
-command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionRemove call <SID>cmd_easysession_generic(function('easysession#remove'), 'Vim session removed successfully: %s', <f-args>)
+command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionDelete call <SID>cmd_easysession_generic(function('easysession#remove'), 'Vim session removed successfully: %s', <f-args>)
 command! -nargs=* -range -complete=customlist,s:complete_easy_session EasySessionLoad call <SID>cmd_easysession_generic(function('easysession#load'), 'Vim session loaded successfully: %s', <f-args>)
 command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionSave call <SID>cmd_easysession_generic(function('easysession#save'), 'Vim session saved successfully: %s', <f-args>)
 command! -nargs=* -complete=customlist,s:complete_easy_session EasySessionRename call <SID>cmd_easysession_rename(<f-args>)

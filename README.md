@@ -17,9 +17,9 @@ Distributed under terms of the MIT license.
 - Manually save the current Vim editing session: `:EasySessionSave`,
 - Switch to a different session: `:EasySessionLoad SESSION_NAME`,
 - List the available sessions: `:EasySessionList`,
-- Delete the current Vim session: `:EasySessionRemove SESSION_NAME`,
+- Delete the current Vim session: `:EasySessionDelete SESSION_NAME`,
 - Rename the current Vim session: `:EasySessionRename SESSION_NAME`,
-- Auto-complete the Vim commands (e.g. `:EasySessionLoad`, `:EasySessionRemove`...),
+- Auto-complete the Vim commands (e.g. `:EasySessionLoad`, `:EasySessionDelete`...),
 - Specify the directory where all the saved sessions are located with: `let g:easysession_dir = expand('~/.my_vim_sessions')`.
 
 For more information about the commands and options:
