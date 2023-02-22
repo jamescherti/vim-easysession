@@ -33,13 +33,24 @@ let g:loaded_easysession = 1
 let g:easysession_dir = get(g:, 'easysession_dir', expand('~/.vim_easysession'))
 let g:easysession_default_session = get(g:, 'easysession_default_session', 'main')  " default session
 let g:easysession_save_argument_list = get(g:, 'easysession_save_argument_list', 0)
+let g:easysession_auto_load = get(g:, 'easysession_auto_load', 0)
+let g:easysession_auto_save = get(g:, 'easysession_auto_save', 0)
 
 if get(g:, 'easysession_register_autocmd', 1)
   augroup EasySession
     autocmd!
-    autocmd VimEnter * nested :call easysession#load(easysession#name(), 1)
-    autocmd VimLeavePre * if !v:dying | call easysession#save() | endif
-    autocmd BufWritePost * :call easysession#save()
+    autocmd VimEnter * nested
+      \ if g:easysession_auto_load |
+      \   call easysession#load(easysession#name(), 1) |
+      \ endif
+    autocmd VimLeavePre *
+      \ if g:easysession_auto_save && !v:dying |
+      \   call easysession#save() |
+      \ endif
+    autocmd BufWritePost *
+      \ if g:easysession_auto_save |
+      \   call easysession#save() |
+      \ endif
   augroup END
 endif
 

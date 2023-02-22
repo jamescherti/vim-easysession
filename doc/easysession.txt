@@ -1,4 +1,4 @@
-*easysession.txt*    Manage your Vim sessions effortlessly.
+*easysession.txt*    Manage Vim sessions effortlessly
 
 Author: James Cherti (website: https://www.jamescherti.com )
 GitHub repository: https://github.com/jamescherti/vim-easysession
@@ -18,32 +18,38 @@ It will automatically:
 2. Options                                                            *options*
 
 ------------------------------------------------------------------------------
-2.1. g:easysession_register_autocmd
+2.1. g:easysession_default_session               *g:easysession_default_session*
 
-1 = the Vim session will be automatically saved and restored.
-0 = manual.
-
-Default: 1
-
-------------------------------------------------------------------------------
-2.3. g:easysession_default_session
-
-The default session that will be loaded automatically when Vim is started.
+The default session that will be loaded automatically when Vim is started
+(The default session will only be loaded at startup if the variable
+|g:easysession_auto_load| is set to 1).
 
 Default: main
 
 ------------------------------------------------------------------------------
-2.4. g:easysession_save_argument_list
+2.2. g:easysession_save_argument_list
 
-0 = Do not save the argument list.
+The Vim argument list (`:help argument-list`) refers to the list of files or
+directories that can be specified to Vim when launching the editor or during an
+editing session. It is generally recommended not to save the argument list in a
+Vim session since the list of files in the argument list can change frequently.
+
+Saving the argument list as part of a Vim session can also result in unexpected
+behavior when restoring the session. When opening a session at a later time,
+the files that were in the argument list when you saved the session may not
+exist or may have been modified, which can cause errors or confusion.
+Vim also loads files and directories from the argument list into buffers, which
+may not always be the desired behavior.
+
+Values:
+
+0 = Do not save the argument list in a Vim session.
 1 = Save the argument list.
-
-`:help argument-list`
 
 Default: 0
 
 ------------------------------------------------------------------------------
-2.2. g:easysession_dir
+2.3. g:easysession_dir
 
 The directory where all the Vim sessions are located.
 
@@ -51,6 +57,24 @@ Example:
 let g:easysession_dir = expand('~/.my_vim_sessions')
 
 Default: ~/.vim_easysession
+
+------------------------------------------------------------------------------
+2.4. g:easysession_auto_load                          *g:easysession_auto_load*
+
+1 = Automatically load the default session on startup
+    (The default session can be changed with: |g:easysession_default_session|)
+0 = Manual save.
+
+Default: 0
+
+------------------------------------------------------------------------------
+2.4. g:easysession_auto_save
+
+1 = Save the Vim editing session automatically, when Vim is closed, to the
+    last loaded session.
+0 = Manual save.
+
+Default: 0
 
 ==============================================================================
 3. Commands                                                          *commands*
