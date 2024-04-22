@@ -99,8 +99,6 @@ function! easysession#save(...) abort
   " Create the session
   let l:sessionoptions = &sessionoptions
   try
-    set sessionoptions+=tabpages
-
     execute 'mksession! ' . fnameescape(l:session_path)
     let l:mksession_lines = []
     let l:mksession_add_lines = []
