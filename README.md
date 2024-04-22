@@ -38,7 +38,7 @@ let g:easysession_auto_save = 1
 " directory, folds, help windows, tab pages, Unix line endings, and use
 " slashes for paths. You can also add to it: buffers,options,localoptions...
 " Check `:help sessionoptions`.
-set sessionoptions=blank,curdir,folds,help,tabpages,unix,slash
+set sessionoptions=blank,curdir,folds,help,tabpages,unix,slash,winsize
 ```
 
 ## Do you like vim-easysession?
