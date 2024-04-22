@@ -34,6 +34,11 @@ Add to `~/.vimrc`:
 let g:easysession_auto_load = 1
 let g:easysession_auto_save = 1
 
+" Configure session options in Vim to include blank windows,current
+" directory, folds, help windows, tab pages, Unix line endings, and use
+" slashes for paths. You can also add to it: buffers,options,localoptions...
+" Check :help sessionoptions
+set sessionoptions=blank,curdir,folds,help,tabpages,unix,slash
 ```
 
 ## Do you like vim-easysession?
