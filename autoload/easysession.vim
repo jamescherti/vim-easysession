@@ -154,25 +154,27 @@ function! easysession#save(...) abort
       call insert(l:mksession_lines, 'let &shortmess = s:shortmess_save', l:session_load_post_index)
     endif
 
-    if exists('g:colors_name') && g:colors_name !=# ''
+    " Save color scheme
+    if g:easysession_save_colorscheme && exists('g:colors_name') && g:colors_name !=# ''
       call insert(l:mksession_lines, 'endif', l:session_load_post_index)
       call insert(l:mksession_lines, '  syntax on', l:session_load_post_index)
       call insert(l:mksession_lines, "if has('syntax') && exists('g:syntax_on') && g:syntax_on", l:session_load_post_index)
       call insert(l:mksession_lines, 'silent colorscheme ' . fnameescape(g:colors_name), l:session_load_post_index)
     endif
 
-    if exists('&background') && &background !=# ''
+    if g:easysession_save_colorscheme && exists('&background') && &background !=# ''
       call insert(l:mksession_lines, 'silent set background=' .
         \         fnameescape(&background), l:session_load_post_index)
       call insert(l:mksession_lines, "let g:colors_name=''",
         \         l:session_load_post_index)
     endif
 
-    if has('gui_running') && exists('&guifont')
+    " Save gui font
+    if g:easysession_save_guifont && has('gui_running') && exists('&guifont')
       let g:easysession_guifont = &guifont
     endif
 
-    if exists('g:easysession_guifont')
+    if g:easysession_save_guifont && exists('g:easysession_guifont')
       call insert(l:mksession_lines,
         \         'silent set guifont=' . escape(g:easysession_guifont, '\ "'),
         \          l:session_load_post_index)

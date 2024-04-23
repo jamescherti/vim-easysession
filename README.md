@@ -33,6 +33,8 @@ Add to `~/.vimrc`:
 ```viml
 let g:easysession_auto_load = 1
 let g:easysession_auto_save = 1
+let g:g:easysession_save_guifont = 1
+let g:easysession_save_colorscheme = 1
 
 " Configure session options in Vim to include blank windows,current
 " directory, folds, help windows, tab pages, Unix line endings, and use
