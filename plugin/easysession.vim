@@ -33,8 +33,8 @@ let g:loaded_easysession = 1
 let g:easysession_dir = get(g:, 'easysession_dir', expand('~/.vim_easysession'))
 let g:easysession_default_session = get(g:, 'easysession_default_session', 'main')  " default session
 let g:easysession_save_argument_list = get(g:, 'easysession_save_argument_list', 0)
-let g:easysession_save_guifont = get(g:, 'easysession_save_guifont', 0)
-let g:easysession_save_colorscheme = get(g:, 'easysession_save_colorscheme', 0)
+let g:easysession_save_guifont = get(g:, 'easysession_save_guifont', 1)
+let g:easysession_save_colorscheme = get(g:, 'easysession_save_colorscheme', 1)
 let g:easysession_auto_load = get(g:, 'easysession_auto_load', 0)
 let g:easysession_auto_save = get(g:, 'easysession_auto_save', 0)
 
