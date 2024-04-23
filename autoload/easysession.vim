@@ -122,14 +122,17 @@ function! easysession#save(...) abort
         continue
       endif
 
-      " Fix: https://github.com/vim/vim/pull/9945
-      " mksession: the conditions 'if bufexists("~/file")' are always false #9945
-      let l:prefix = 'if bufexists("~'
-      if l:line[0:len(l:prefix)-1] ==# l:prefix
-        let l:line = substitute(l:line,
-              \ '\C\v\s*(if\s*bufexists\s*\()(.*)(\s*\)\s*\|\s*buffer\s*)',
-              \ '\1fnamemodify(\2, '':p'')\3',
-              \ '')
+      if ! has('patch-8.2.4566')
+        " Fix: https://github.com/vim/vim/pull/9945
+        " mksession: the conditions 'if bufexists("~/file")' are always false #9945
+        " The 'patch-8.2.1978' adds the '<cmd>' feature
+        let l:prefix = 'if bufexists("~'
+        if l:line[0:len(l:prefix)-1] ==# l:prefix
+          let l:line = substitute(l:line,
+                \ '\C\v\s*(if\s*bufexists\s*\()(.*)(\s*\)\s*\|\s*buffer\s*)',
+                \ '\1fnamemodify(\2, '':p'')\3',
+                \ '')
+        endif
       endif
 
       call add(l:mksession_lines, l:line)
