@@ -40,8 +40,8 @@ let g:easysession_auto_save_on_write = get(g:, 'easysession_auto_save_on_write',
 let g:easysession_auto_save_on_quit = get(g:, 'easysession_auto_save_on_quit', 1)
 
 let g:easysession_save_argument_list = get(g:, 'easysession_save_argument_list', 0)
-let g:easysession_save_guifont = get(g:, 'easysession_save_guifont', 1)
-let g:easysession_save_colorscheme = get(g:, 'easysession_save_colorscheme', 1)
+let g:easysession_save_guifont = get(g:, 'easysession_save_guifont', 0)
+let g:easysession_save_colorscheme = get(g:, 'easysession_save_colorscheme', 0)
 
 if get(g:, 'easysession_register_autocmd', 1)
   augroup EasySession

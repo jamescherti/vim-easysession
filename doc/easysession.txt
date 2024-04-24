@@ -82,7 +82,7 @@ Default: 0
 1 = Save the 'guifont'.
 0 = Do not save the 'guifont'.
 
-Default: 1
+Default: 0
 
 ------------------------------------------------------------------------------
 2.7. g:easysession_save_colorscheme
@@ -90,7 +90,7 @@ Default: 1
 1 = Save the color scheme.
 0 = Do not save the color scheme.
 
-Default: 1
+Default: 0
 
 ==============================================================================
 3. Commands                                                          *commands*
