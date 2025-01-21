@@ -4,7 +4,7 @@
 " Maintainer:  James Cherti
 " URL:         https://github.com/jamescherti/vim-easysession
 "
-" Licence:     Copyright (C) 2022-2024 James Cherti
+" Licence:     Copyright (C) 2022-2025 James Cherti
 "              Distributed under terms of the MIT license.
 "
 "              Permission is hereby granted, free of charge, to any person
