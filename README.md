@@ -44,12 +44,6 @@ let g:easysession_save_colorscheme = 1
 set sessionoptions=blank,curdir,folds,help,tabpages,unix,slash,winsize
 ```
 
-## Do you like vim-easysession?
-
-Please [star vim-easysession on GitHub](https://github.com/jamescherti/vim-easysession).
-
-You can also follow the author on [Github @jamescherti](https://github.com/jamescherti) and [Twitter @jamescherti](https://twitter.com/jamescherti).
-
 ## Installation
 
 ### Installation with Vim's built-in package manager (Vim 8 and above)
