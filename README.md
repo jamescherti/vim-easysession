@@ -7,7 +7,7 @@ In addition to its automatic session management capabilities, the EasySession Vi
 
 ## Author and license
 
-Copyright (C) 2022-2025 [James Cherti](https://www.jamescherti.com).
+Copyright (C) 2022-2026 [James Cherti](https://www.jamescherti.com).
 
 Distributed under terms of the MIT license.
 
