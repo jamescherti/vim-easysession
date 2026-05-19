@@ -1,7 +1,7 @@
 # vim-easysession - Manage Vim sessions effortlessly
 ![License](https://img.shields.io/github/license/jamescherti/vim-easysession)
 
-The Vim plugin **EasySession** offers a convenient and effortless way to persist and restore Vim editing sessions. It can significantly increase productivity and save a lot of time for users who frequently switch between different projects and those who frequently open and close the Vim editor.
+The [easysession](https://github.com/jamescherti/vim-easysession) Vim plugin offers a convenient and effortless way to persist and restore Vim editing sessions. It can significantly increase productivity and save a lot of time for users who frequently switch between different projects and those who frequently open and close the Vim editor.
 
 In addition to its automatic session management capabilities, the EasySession Vim plugin also offers a variety of useful Vim commands that allow users to save, load, list and delete sessions manually.
 
